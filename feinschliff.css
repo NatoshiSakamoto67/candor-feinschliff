@@ -317,3 +317,11 @@ body::before { background: radial-gradient(1400px 700px at 50% -20%, color-mix(i
 [data-theme="dunkel"] .mandant-logo { filter: brightness(0) invert(1); }
 [data-edition="kunde"] .wordmark, [data-edition="kunde"] .brand-mark { display: none; }
 [data-edition="kunde"] .li-zahl, [data-edition="kunde"] .tb-badge { background: var(--mandant-2, var(--accent)); color: #1a1205; }
+
+/* Glas-Icons (Bildsatz vom 29.10.2026): eigene Bilder ohne Kachel, Linienzeichen bekommen denselben Glanz. */
+.li-ic { background: linear-gradient(180deg, color-mix(in oklab, var(--c) 78%, #fff) 0%, var(--c) 55%, color-mix(in oklab, var(--c) 82%, #000) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.25); }
+.li-ic.li-bild { background: none; box-shadow: 0 1px 2px rgba(0,0,0,.28); overflow: hidden; }
+.li-ic.li-bild img { display: block; width: 100%; height: 100%; }
+.li-avatar.li-avatar-bild { background: none; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.li-avatar.li-avatar-bild img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); }

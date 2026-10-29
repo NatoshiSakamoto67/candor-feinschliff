@@ -46,7 +46,12 @@ function stand() {
   };
 }
 
-function kachel(z) { return h("span", { class: "li-ic", style: `--c:${z.farbe}`, "aria-hidden": "true" }, icon(z.icon)); }
+/* Eigene Glas-Icons (icons/liste/*.png) wo vorhanden, sonst Linienzeichen auf einer Kachel mit gleichem Glanz. */
+const bildIcon = (name) => h("img", { src: `icons/liste/${name}.png`, alt: "", width: 30, height: 30, decoding: "async", draggable: "false" });
+function kachel(z) {
+  if (z.bild) return h("span", { class: "li-ic li-bild", "aria-hidden": "true" }, bildIcon(z.bild));
+  return h("span", { class: "li-ic", style: `--c:${z.farbe}`, "aria-hidden": "true" }, icon(z.icon));
+}
 
 function zeile(z, refs) {
   const wert = h("span", { class: "li-v" });
@@ -75,12 +80,12 @@ function profilkarte(refs) {
   const kuerzel = fz ? (String(fz.marke || "?")[0] + String(fz.modell || "")[0]).toUpperCase() : "+";
   const karte = h("div", { class: "li-gruppe li-profil" },
     h("a", { class: "li-row li-row-profil", href: fz ? `#fahrzeug/${fz.id}` : "#fahrzeug", "data-id": "profil", onclick: (ev) => { ev.preventDefault(); go("fahrzeug", fz ? { sub: fz.id } : {}); } },
-      h("span", { class: "li-avatar", "aria-hidden": "true" }, kuerzel),
+      h("span", { class: `li-avatar${fz ? " li-avatar-bild" : ""}`, "aria-hidden": "true" }, fz ? bildIcon("auto") : kuerzel),
       h("span", { class: "li-t" }, h("span", { class: "li-name" }, name), h("span", { class: "li-unter" }, fz ? "Fahrzeugakte, Wartung, Fehler und mehr" : "Fahrzeug anlegen oder wählen")),
       fz && (fz.kennzeichen || "").trim() ? h("span", { class: "li-plate" }, plate(fz, true)) : null,
       h("span", { class: "li-chev", "aria-hidden": "true" }, "›")),
     h("a", { class: "li-row", href: "#fahrzeuge", "data-id": "fuhrpark", onclick: (ev) => { ev.preventDefault(); go("fahrzeuge"); } },
-      h("span", { class: "li-ic", style: "--c:#30D158", "aria-hidden": "true" }, icon("fuhrpark")), h("span", { class: "li-t" }, "Fuhrpark"),
+      h("span", { class: "li-ic li-bild", "aria-hidden": "true" }, bildIcon("auto")), h("span", { class: "li-t" }, "Fuhrpark"),
       h("span", { class: "li-v" }, String(vehicles().length)), h("span", { class: "li-chev", "aria-hidden": "true" }, "›")));
   refs.set("profil", { el: karte.firstChild }); refs.set("fuhrpark", { el: karte.lastChild });
   return karte;

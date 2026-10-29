@@ -5,35 +5,35 @@
 /* Farben der Icon-Kacheln wie bei Apple (Systemfarben, dunkle Variante), nur mit Bedeutung. */
 export const FARBE = { orange: "#FF9F0A", blau: "#0A84FF", gruen: "#30D158", grau: "#8E8E93", rot: "#FF453A", lila: "#5E5CE6", indigo: "#BF5AF2", tuerkis: "#40C8E0", pink: "#FF375F", gelb: "#FFD60A", dunkel: "#3A3A3C" };
 
-/** @typedef {{id: string, label: string, icon: string, farbe: string, ziel?: string, sub?: string, aktion?: string, schalter?: string, bald?: boolean, profi?: boolean, kunde?: boolean, nurKunde?: boolean, apple: string}} Zeile */
+/** @typedef {{id: string, label: string, icon: string, farbe: string, ziel?: string, sub?: string, aktion?: string, schalter?: string, bald?: boolean, profi?: boolean, kunde?: boolean, nurKunde?: boolean, bild?: string, apple: string}} Zeile */
 /** @type {{id: string, titel?: string, zeilen: Zeile[]}[]} */
 export const BAUM = [
   { id: "verbindung", zeilen: [
     { id: "schreibschutz", label: "Schreibschutz", icon: "schloss", farbe: FARBE.orange, schalter: "schreibschutz", apple: "Flugmodus" },
-    { id: "wlan", label: "WLAN-Adapter", icon: "wlan", farbe: FARBE.blau, ziel: "connect", apple: "WLAN" },
-    { id: "bluetooth", label: "Bluetooth-Adapter", icon: "bt", farbe: FARBE.blau, ziel: "connect", kunde: true, apple: "Bluetooth" },
+    { id: "wlan", label: "WLAN-Adapter", icon: "wlan", bild: "stecker", farbe: FARBE.blau, ziel: "connect", apple: "WLAN" },
+    { id: "bluetooth", label: "Bluetooth-Adapter", icon: "bt", bild: "stecker", farbe: FARBE.blau, ziel: "connect", kunde: true, apple: "Bluetooth" },
     { id: "bus", label: "Fahrzeugbus", icon: "bus", farbe: FARBE.gruen, ziel: "car", profi: true, apple: "Mobilfunk" },
-    { id: "steuergeraete", label: "Steuergeräte", icon: "ecu", farbe: FARBE.gruen, ziel: "car", apple: "Persönlicher Hotspot" },
-    { id: "bordnetz", label: "Bordnetz & Batterie", icon: "battery", farbe: FARBE.gruen, ziel: "bordnetz", kunde: true, apple: "Batterie" },
+    { id: "steuergeraete", label: "Steuergeräte", icon: "ecu", bild: "steuergeraete", farbe: FARBE.gruen, ziel: "car", apple: "Persönlicher Hotspot" },
+    { id: "bordnetz", label: "Bordnetz & Batterie", icon: "battery", bild: "messgeraet", farbe: FARBE.gruen, ziel: "bordnetz", kunde: true, apple: "Batterie" },
     { id: "fernzugriff", label: "Fernzugriff", icon: "globus", farbe: FARBE.blau, schalter: "fernzugriff", bald: true, apple: "VPN" },
   ] },
   { id: "diagnose", titel: "Diagnose", zeilen: [
-    { id: "vollscan", label: "Vollscan", icon: "scan", farbe: FARBE.blau, aktion: "vollscan", kunde: true, apple: "Softwareupdate" },
-    { id: "fehler", label: "Fehlerspeicher", icon: "speicher", farbe: FARBE.rot, ziel: "faults", kunde: true, apple: "iPhone-Speicher" },
-    { id: "live", label: "Live-Werte", icon: "pulse", farbe: FARBE.tuerkis, ziel: "live", profi: true, apple: "Batterie (Diagramm)" },
-    { id: "pruefungen", label: "Prüfungen", icon: "check", farbe: FARBE.lila, ziel: "check", profi: true, apple: "Allgemein" },
-    { id: "service", label: "Service & Anlernen", icon: "wrench", farbe: FARBE.grau, ziel: "service", kunde: true, apple: "Apps" },
-    { id: "bericht", label: "Bericht", icon: "report", farbe: FARBE.blau, ziel: "report", apple: "Teilen" },
+    { id: "vollscan", label: "Vollscan", icon: "scan", bild: "pruefcheck", farbe: FARBE.blau, aktion: "vollscan", kunde: true, apple: "Softwareupdate" },
+    { id: "fehler", label: "Fehlerspeicher", icon: "speicher", bild: "fehler", farbe: FARBE.rot, ziel: "faults", kunde: true, apple: "iPhone-Speicher" },
+    { id: "live", label: "Live-Werte", icon: "pulse", bild: "live", farbe: FARBE.tuerkis, ziel: "live", profi: true, apple: "Batterie (Diagramm)" },
+    { id: "pruefungen", label: "Prüfungen", icon: "check", bild: "route", farbe: FARBE.lila, ziel: "check", profi: true, apple: "Allgemein" },
+    { id: "service", label: "Service & Anlernen", icon: "wrench", bild: "service", farbe: FARBE.grau, ziel: "service", kunde: true, apple: "Apps" },
+    { id: "bericht", label: "Bericht", icon: "report", bild: "bericht", farbe: FARBE.blau, ziel: "report", apple: "Teilen" },
   ] },
   { id: "geraet", zeilen: [
-    { id: "allgemein", label: "Allgemein", icon: "regler", farbe: FARBE.grau, ziel: "fahrzeug", apple: "Allgemein" },
+    { id: "allgemein", label: "Allgemein", icon: "regler", bild: "kennung", farbe: FARBE.grau, ziel: "fahrzeug", apple: "Allgemein" },
     { id: "bedienung", label: "Bedienungshilfen", icon: "hand", farbe: FARBE.blau, aktion: "anzeige", kunde: true, apple: "Bedienungshilfen" },
     { id: "schnellaktion", label: "Schnellaktion", icon: "blitz", farbe: FARBE.blau, aktion: "vollscan", apple: "Aktionstaste" },
-    { id: "anzeige", label: "Anzeige", icon: "sonne", farbe: FARBE.blau, aktion: "anzeige", kunde: true, apple: "Anzeige & Helligkeit" },
-    { id: "ki", label: "KI-Assistent", icon: "stern", farbe: FARBE.indigo, ziel: "agent", apple: "Apple Intelligence & Siri" },
-    { id: "darstellung", label: "Fahrzeugdarstellung", icon: "bild", farbe: FARBE.tuerkis, ziel: "car", kunde: true, apple: "Hintergrundbild" },
+    { id: "anzeige", label: "Anzeige", icon: "sonne", bild: "anzeige", farbe: FARBE.blau, aktion: "anzeige", kunde: true, apple: "Anzeige & Helligkeit" },
+    { id: "ki", label: "KI-Assistent", icon: "stern", bild: "ki", farbe: FARBE.indigo, ziel: "agent", apple: "Apple Intelligence & Siri" },
+    { id: "darstellung", label: "Fahrzeugdarstellung", icon: "bild", bild: "auto", farbe: FARBE.tuerkis, ziel: "car", kunde: true, apple: "Hintergrundbild" },
     { id: "cockpit", label: "Startseite & Cockpit", icon: "raster", farbe: FARBE.blau, aktion: "cockpit", apple: "Home-Bildschirm & App-Mediathek" },
-    { id: "kamera", label: "Kamera", icon: "kamera", farbe: FARBE.grau, bald: true, apple: "Kamera" },
+    { id: "kamera", label: "Kamera", icon: "kamera", bild: "freeze", farbe: FARBE.grau, bald: true, apple: "Kamera" },
     { id: "statusleiste", label: "Statusleiste", icon: "schalter", farbe: FARBE.grau, bald: true, apple: "Kontrollzentrum" },
     { id: "dashboard", label: "Dashboard-Modus", icon: "uhr", farbe: FARBE.dunkel, bald: true, apple: "Standby" },
     { id: "suche", label: "Suche", icon: "lupe", farbe: FARBE.grau, aktion: "suche", kunde: true, apple: "Suchen" },
@@ -42,7 +42,7 @@ export const BAUM = [
     { id: "warnungen", label: "Warnungen", icon: "glocke", farbe: FARBE.rot, bald: true, apple: "Mitteilungen" },
     { id: "toene", label: "Töne & Haptik", icon: "ton", farbe: FARBE.pink, bald: true, apple: "Töne & Haptik" },
     { id: "modus", label: "Modus", icon: "mond", farbe: FARBE.lila, aktion: "modus", apple: "Fokus" },
-    { id: "betriebsbuch", label: "Betriebsbuch", icon: "buch", farbe: FARBE.lila, ziel: "service", apple: "Bildschirmzeit" },
+    { id: "betriebsbuch", label: "Betriebsbuch", icon: "buch", bild: "verlauf", farbe: FARBE.lila, ziel: "service", apple: "Bildschirmzeit" },
   ] },
   { id: "schutz", zeilen: [
     { id: "freigabe", label: "Freigabe", icon: "gesicht", farbe: FARBE.gruen, ziel: "handbuch", apple: "Face ID & Code" },
@@ -57,7 +57,7 @@ export const BAUM = [
   { id: "werkstatt", zeilen: [
     { id: "meinewerkstatt", label: "Meine Werkstatt", icon: "werkstatt", farbe: FARBE.blau, aktion: "portal", kunde: true, nurKunde: true, apple: "Apps (Werkstatt-Portal)" },
     { id: "werkhof", label: "Werkhof", icon: "werkstatt", farbe: FARBE.orange, ziel: "einstellungen", apple: "Apps (verbundene Dienste)" },
-    { id: "werkstattdaten", label: "Werkstatt & Handbuch", icon: "buch", farbe: FARBE.lila, ziel: "werkstatt", apple: "Apps" },
+    { id: "werkstattdaten", label: "Werkstatt & Handbuch", icon: "buch", bild: "handbuch", farbe: FARBE.lila, ziel: "werkstatt", apple: "Apps" },
   ] },
 ];
 
