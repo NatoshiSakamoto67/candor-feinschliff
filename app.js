@@ -28,6 +28,7 @@ import { initReport } from "./modules/report.js";
 import { initSearch } from "./modules/search.js";
 import { initService } from "./modules/service.js";
 import { initNavigation } from "./modules/navigation.js";
+import { initBordnetz } from "./modules/bordnetz.js";
 
 /* Jeder Bereich hängt am Ereignis "render" (start, vehicle, faults, check, pfade, live, report). */
 function renderAll() {
@@ -61,7 +62,7 @@ function startLive() {
 async function start() {
   const wanted = initialRoute();
   initShell(); initVorgang(); initWerkstatt(); initHandbuch(); initEinstellungen(); initGarage(); initConnect(); initStart(); initWidgets(); initEinfach(); initHistory(); initInfo(); initApproval();
-  initVehicle(); initFaults(); initLive(); initCheck(); initPfade(); initAgent(); initReport(); initSearch(); initService(); initNavigation();
+  initVehicle(); initFaults(); initLive(); initCheck(); initPfade(); initAgent(); initReport(); initSearch(); initService(); initNavigation(); initBordnetz();
   on("open-settings", openDisplaySettings);
   on("reload", reload);
   on("reconnect", () => connect());

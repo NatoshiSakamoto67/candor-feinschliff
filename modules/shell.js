@@ -20,6 +20,7 @@ export const PAGES = [
   { id: "live", label: "Live-Werte", icon: "live" },
   { id: "check", label: "Prüfungen", icon: "check" },
   { id: "service", label: "Service und Anlernen", icon: "wrench" },
+  { id: "bordnetz", label: "Bordnetz & Batterie", icon: "battery" },
   { id: "agent", label: "Assistent", icon: "chat" },
   { id: "report", label: "Bericht", icon: "report" },
   { id: "history", label: "Verlauf", icon: "clock" },

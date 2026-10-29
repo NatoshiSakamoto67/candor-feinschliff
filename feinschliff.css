@@ -199,3 +199,110 @@ body::before { background: radial-gradient(1400px 700px at 50% -20%, color-mix(i
 .view-enter { animation: fs-ein var(--dur-slow) var(--ease-out) both; }
 @keyframes fs-ein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .view-enter { animation: none; } }
+
+/* =====================================================================================================
+   Einstellungen-Liste wie bei Apple (29.10.2026, docs/APPLE_EINSTELLUNGEN_KONZEPT.md)
+   Gruppen als runde Karten, Icon-Kacheln 30 px mit Radius 7, Wert rechts grau, Pfeil, Schalter grün.
+   ===================================================================================================== */
+:root { --li-flaeche: var(--surface-1); --li-radius: 22px; --li-zeile: 50px; --li-gruen: #34C759; }
+[data-theme="dunkel"] { --li-flaeche: #1C1C1E; }
+[data-theme="dunkel"] body, [data-theme="dunkel"] .app { background: #000; }
+[data-theme="dunkel"] body::before { display: none; }
+
+.li-titel { margin: 8px 4px 14px; font: 700 34px/41px var(--font-display); letter-spacing: .01em; }
+.li-k { margin: 22px 20px 7px; font: 600 15px/20px var(--font-text); color: var(--text-muted); }
+.li-block { margin-top: 26px; }
+.li-block:has(.li-k) { margin-top: 0; }
+.li-gruppe { display: block; border-radius: var(--li-radius); background: var(--li-flaeche); overflow: hidden; box-shadow: inset 0 .5px 0 var(--kante-2); }
+.li-row { position: relative; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto auto; align-items: center; column-gap: 14px; min-height: var(--li-zeile); padding: 0 16px; color: var(--text); text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color var(--dur-fast) var(--ease-out); }
+.li-row:not(:has(.li-ic, .li-avatar)) { grid-template-columns: minmax(0, 1fr) auto auto; }
+.li-row + .li-row::before { content: ""; position: absolute; top: 0; right: 0; left: 60px; height: .5px; background: var(--hairline); }
+.li-row:not(:has(.li-ic)) + .li-row::before, .li-row + .li-row:not(:has(.li-ic))::before { left: 16px; }
+.li-row:active, .li-row:hover { background: color-mix(in oklab, var(--text) 7%, transparent); }
+.li-row[aria-current="page"] { background: var(--accent-fill, var(--accent)); color: var(--on-accent-fill, #fff); }
+.li-row[aria-current="page"] .li-v, .li-row[aria-current="page"] .li-chev, .li-row[aria-current="page"] .li-unter { color: color-mix(in oklab, currentColor 75%, transparent); }
+.li-ic { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 7.5px; background: var(--c); color: #fff; box-shadow: inset 0 .5px 0 rgba(255,255,255,.25); }
+.li-ic .ic { width: 19px; height: 19px; stroke: currentColor; stroke-width: 1.9; fill: none; }
+.li-t { min-width: 0; font: 400 17px/22px var(--font-text); letter-spacing: -.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.li-v { font: 400 17px/22px var(--font-text); color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.li-v.t-crit { color: var(--crit); } .li-v.t-warn { color: var(--warn); } .li-v.t-running { color: var(--accent); }
+.li-chev { font: 600 20px/1 var(--font-text); color: color-mix(in oklab, var(--text-muted) 70%, transparent); transform: translateY(-1px); }
+.li-row.bald { cursor: default; } .li-row.bald .li-t { color: var(--text-muted); }
+.li-row.bald .li-ic { filter: saturate(.35); opacity: .7; }
+/* Schalter wie iOS: 51 × 31, grün, Kreis gleitet */
+.li-sw { appearance: none; -webkit-appearance: none; position: relative; width: 51px; height: 31px; margin: 0; border-radius: 16px; background: color-mix(in oklab, var(--text) 16%, transparent); cursor: pointer; transition: background-color var(--dur) var(--ease-out); grid-column: -2 / -1; }
+.li-sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.15), 0 1px 1px rgba(0,0,0,.16); transition: transform var(--dur) var(--ease-spring); }
+.li-sw:checked { background: var(--li-gruen); }
+.li-sw:checked::after { transform: translateX(20px); }
+.li-sw:disabled { opacity: .45; cursor: default; }
+.li-row:has(.li-sw) { grid-template-columns: 30px minmax(0, 1fr) auto auto; }
+/* Profilkarte: rundes Bild, Name groß, Untertitel */
+.li-profil { margin-bottom: 26px; }
+.li-row.li-row-profil { grid-template-columns: 62px minmax(0, 1fr) auto auto; min-height: 84px; padding-block: 10px; }
+.li-row-profil + .li-row::before { left: 60px; }
+.li-avatar { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; font: 650 25px/1 var(--font-display); color: #fff; letter-spacing: .02em;
+  background: linear-gradient(160deg, #A8B4D8, #6E7FB0); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+.li-row-profil .li-t { display: grid; gap: 1px; white-space: normal; }
+.li-name { font: 600 21px/26px var(--font-display); letter-spacing: -.01em; }
+.li-unter { font: 400 14px/18px var(--font-text); color: var(--text-muted); }
+.li-plate { transform: scale(.82); transform-origin: right center; }
+/* Nächster Schritt wie »Einrichtung abschließen« */
+.li-naechster { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; column-gap: 12px; margin: -12px 0 0; padding: 12px 16px; color: var(--text); text-decoration: none; }
+.li-naechster .li-t { display: grid; gap: 1px; white-space: normal; }
+.li-naechster .li-name { font: 600 17px/22px var(--font-text); color: var(--accent); }
+.li-zahl { display: grid; place-items: center; min-width: 28px; height: 22px; padding: 0 7px; border-radius: 11px; background: var(--accent-fill, var(--accent)); color: var(--on-accent-fill, #fff); font: 600 13px/1 var(--font-num); font-variant-numeric: tabular-nums; }
+.li-fuss { margin: 7px 20px 22px; font: 400 13px/17px var(--font-text); color: var(--text-muted); }
+.li-seite { max-width: 720px; margin: 0 auto; display: grid; gap: 0; }
+.li-seite > .li-gruppe + .li-gruppe { margin-top: 26px; }
+
+/* ---------- Ort der Liste: Handy = Startseite, breit = linke Spalte ---------- */
+.tabbar { padding: 0; background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; pointer-events: none; }
+.tb-liste { display: none; }
+.tb-suche { pointer-events: auto; position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: min(92vw, 420px); height: 50px; display: flex; align-items: center; gap: 10px; padding: 0 18px; border: 0; border-radius: 25px;
+  background: var(--glass-bg); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); box-shadow: 0 0 0 .5px var(--glass-line), 0 10px 30px -10px rgba(0,0,0,.5), inset 0 .5px 0 var(--kante); color: var(--text-muted); font: 400 17px/1 var(--font-text); cursor: pointer; }
+.tb-suche .ic { width: 20px; height: 20px; stroke: var(--text); stroke-width: 2; fill: none; }
+.tb-suche > span:first-of-type { flex: 1; text-align: left; }
+.main { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+.start-liste { display: block; margin: 0 0 var(--sp-5); }
+@media (max-width: 1099px) {
+  /* Am Handy ist die Liste die Startseite; Fahrzeugleiste und große Ablauf-Karte entfallen dort. */
+  #view-start #vehicle-card, #view-start #start-ablauf, #view-start .modus-wahl, #view-start #start-handbuch { display: none !important; }
+  .tb-i, .tb-haupt, .tb-ablage { display: none; }
+}
+@media (min-width: 1100px) {
+  .tabbar { pointer-events: auto; top: var(--status-h, 60px); right: auto; width: 340px; bottom: 0; padding: 12px 16px 90px; overflow-y: auto; overscroll-behavior: contain; display: block;
+    background: color-mix(in oklab, var(--surface-0) 92%, transparent); border-right: .5px solid var(--glass-line); }
+  .tb-liste { display: block; }
+  .tb-liste .li-profil { margin-bottom: 20px; }
+  .tb-liste .li-block { margin-top: 18px; }
+  .tb-liste .li-row { min-height: 42px; column-gap: 11px; padding: 0 12px; grid-template-columns: 26px minmax(0, 1fr) auto auto; }
+  .tb-liste .li-row + .li-row::before { left: 49px; }
+  .tb-liste .li-ic { width: 26px; height: 26px; border-radius: 6.5px; } .tb-liste .li-ic .ic { width: 16px; height: 16px; }
+  .tb-liste .li-t, .tb-liste .li-v { font-size: 15px; }
+  .tb-liste .li-row.li-row-profil { grid-template-columns: 48px minmax(0, 1fr) auto auto; min-height: 66px; } .tb-liste .li-avatar { width: 48px; height: 48px; font-size: 19px; }
+  .tb-liste .li-name { font-size: 17px; line-height: 22px; } .tb-liste .li-unter { font-size: 12.5px; } .tb-liste .li-plate { display: none; }
+  .tb-liste .li-k { margin: 16px 12px 6px; font-size: 13px; }
+  .tb-suche { left: 16px; transform: none; width: 308px; bottom: 16px; }
+  .main { padding-left: 340px; padding-bottom: var(--sp-7); }
+  .start-liste { display: none; }
+}
+@media print { .tb-suche { display: none !important; } }
+/* Bordnetz & Batterie (wie Apple Batterie) */
+.bn-kopf { padding: 18px 20px 20px; display: grid; gap: 8px; }
+.bn-gross { display: flex; align-items: baseline; gap: 6px; }
+.bn-zahl { font: 600 56px/1 var(--font-display); letter-spacing: -.02em; }
+.bn-zahl.t-ok { color: var(--text); } .bn-zahl.t-warn { color: var(--warn); } .bn-zahl.t-crit { color: var(--crit); }
+.bn-einheit { font: 600 22px/1 var(--font-text); color: var(--text-muted); }
+.bn-zeile { margin: 0; display: flex; align-items: center; gap: 6px; font: 600 15px/20px var(--font-text); }
+.bn-balken { display: block; height: 14px; border-radius: 7px; background: color-mix(in oklab, var(--text) 12%, transparent); overflow: hidden; }
+.bn-balken-f { display: block; height: 100%; width: 100%; border-radius: 7px; background: var(--ok); transform-origin: left; transition: transform var(--dur-slow) var(--ease-out); }
+.bn-balken-f.t-warn { background: var(--warn); } .bn-balken-f.t-crit { background: var(--crit); }
+.bn-ladung { margin: 0; color: var(--text-muted); }
+.bn-diagramm { padding: 18px 16px 12px; }
+.bn-feld { position: relative; height: 150px; }
+.bn-saeulen { position: absolute; inset: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 5px; align-items: end; }
+.bn-s { display: block; height: 100%; border-radius: 4px 4px 2px 2px; background: color-mix(in oklab, var(--text) 32%, transparent); transform-origin: bottom; transition: transform var(--dur-slow) var(--ease-out); }
+.bn-s.jetzt { background: var(--accent); }
+.bn-schnitt { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; border-top: 1px solid color-mix(in oklab, var(--text) 45%, transparent); pointer-events: none; transform-origin: bottom; top: 100%; }
+.bn-schnitt-t { position: absolute; right: 0; top: -2px; transform: translateY(-100%); color: var(--text-muted); }
+.bn-achse { display: flex; justify-content: space-between; margin-top: 8px; color: var(--text-muted); }

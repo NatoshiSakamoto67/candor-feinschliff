@@ -3,6 +3,8 @@
 import { $, h, s, icon, toast, jump, statusChip, mark } from "./dom.js";
 import { state, logEvent, emit } from "./state.js";
 import { busy, vorgang, showFailure, withTimeout, HILFE } from "./vorgang.js";
+import { storageGet } from "./dom.js";
+const schreibschutzAn = () => storageGet("kfzdiag-schreibschutz", false) === true;
 
 const HOLD_MS = 2000;
 const approval = { req: null, timer: null, opts: {} };
@@ -12,6 +14,7 @@ const vibrate = (pattern) => { try { navigator.vibrate && navigator.vibrate(patt
 /* opts.vorpruefung: wird unmittelbar vor dem Schreiben erneut gemessen (die Freigabe gilt bis zu 5 min, der Zustand
    kann kippen). Gibt sie einen Text zurück, wird nichts geschrieben. opts.vorbedingungen: Stand zur Anzeige im Dialog. */
 export async function startAction(action, opts = {}) {
+  if (schreibschutzAn()) { showFailure({ titel: "Schreibschutz ist an", meldung: "CANdor schreibt gerade nichts ins Auto. Ausschalten in der Liste ganz oben unter »Schreibschutz«. Es wurde nichts gesendet.", hilfe: [], retry: null }); return; }
   const done = busy("Freigabe vorbereiten");
   const reply = await withTimeout(state.src.request(action), 8000, "Der Server hat die Freigabe in 8 Sekunden nicht vorbereitet.").catch((e) => ({ typ: "fehler", meldung: e.message })).finally(done);
   if (reply.typ !== "freigabe_anfrage") { showFailure({ titel: "Freigabe nicht möglich", meldung: `${reply.meldung || "Unbekannter Fehler."} Es wurde nichts geschrieben.`, hilfe: [], retry: () => startAction(action) }); return; }

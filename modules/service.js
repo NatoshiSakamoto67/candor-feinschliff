@@ -37,6 +37,7 @@ export function eintragen(typ, daten) {
   return warteschlange;
 }
 /* Erledigte Arbeiten heute am gewählten Fahrzeug, für den Ablauf auf der Startseite. */
+export const buchLaenge = () => buch.length;
 export function erledigtHeute() {
   const heute = new Date().toDateString(), fz = fzName();
   return buch.filter((g) => ["ausgefuehrt", "anleitung"].includes(g.typ) && new Date(g.zeit).toDateString() === heute && (g.daten || {}).fahrzeug === fz && (g.daten || {}).funktion).length;
