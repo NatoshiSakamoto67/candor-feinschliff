@@ -13,7 +13,7 @@ export const BEREICHE = [
   { id: "messen", label: "Messen", icon: "pulse", ziel: "live", seiten: ["live", "check"], profi: true,
     unter: [{ seite: "live", label: "Live-Werte" }, { seite: "check", label: "Prüfungen" }] },
   { id: "service", label: "Service", icon: "wrench", ziel: "service", seiten: ["service"] },
-  { id: "assistent", label: "Assistent", icon: "chat", ziel: "agent", seiten: ["agent"] },
+  { id: "assistent", label: "KI-Assistent", icon: "chat", ziel: "agent", seiten: ["agent"] },
 ];
 export const bereichFuer = (seite) => BEREICHE.find((b) => b.seiten.includes(seite)) || null;
 const einfach = () => document.documentElement.dataset.modus === "einfach";

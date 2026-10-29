@@ -106,8 +106,8 @@ export const FUNKTIONEN = [
     weg: "schreibt", risiko: "mittel", dauer: "5 bis 10 min", stufe: "erlaubt", einfach: false, vorbedingungen: [V.zuendung, V.steht, { id: "eben", text: "Ebene Fläche, Solldruck, leer, Federung eingeschwungen", bestaetigen: true }], schritte: ["Danach Scheinwerfer mechanisch am Prüfgerät einstellen."],
     nachher: "Hell-Dunkel-Grenze passt.", profil: ["leuchtweite_grund"], umkehrbar: false },
   { id: "adas", name: "Kamera und Radar kalibrieren", gruppe: "komfort", zweck: "Richtet Frontkamera oder Radar nach Scheibentausch oder Unfall aus.", alltag: ["kamera", "radar", "frontscheibe", "spurhalte", "abstandstempomat", "adas"],
-    weg: "schreibt", risiko: "hoch", dauer: "20 bis 60 min", stufe: "erlaubt", einfach: false, vorbedingungen: [V.zuendung, V.steht, { id: "tafeln", text: "Zieltafeln nach Herstellerangabe aufgebaut, Boden eben, Fahrzeug ausgerichtet", bestaetigen: true }], schritte: ["Ohne Zieltafeln nicht möglich."],
-    nachher: "Assistenten ohne Fehlermeldung, Probefahrt.", profil: ["adas_kalibrieren"], umkehrbar: false },
+    weg: "schreibt", risiko: "hoch", dauer: "20 bis 60 min", stufe: "grenzwertig", einfach: false, vorbedingungen: [V.zuendung, V.steht, { id: "tafeln", text: "Zieltafeln nach Herstellerangabe aufgebaut, Boden eben, Fahrzeug ausgerichtet", bestaetigen: true }], schritte: ["Ohne Zieltafeln nicht möglich."],
+    nachher: "Assistenten ohne Fehlermeldung, Probefahrt.", profil: ["adas_kalibrieren"], umkehrbar: false, hinweis: "Sicherheitsrelevant. Nur mit Zieltafeln und Vorgaben des Herstellers; Nachweis (Foto des Aufbaus, Prüfprotokoll) ins Betriebsbuch." },
   { id: "dpf_regeneration", name: "Partikelfilter: Service-Regeneration", gruppe: "abgas", zweck: "Brennt den Partikelfilter im Stand frei, wenn die Fahrt dafür nicht reicht.", alltag: ["dpf", "partikelfilter", "regeneration", "rußfilter", "freibrennen"],
     weg: "schreibt", risiko: "hoch", dauer: "20 bis 40 min", stufe: "grenzwertig", einfach: false, vorbedingungen: [V.zuendung, V.motorLaeuft, V.warm, V.steht, V.freien, { id: "tank", text: "Tank mindestens ein Viertel voll", bestaetigen: true }, V.keineFehler], schritte: ["Neben dem Auto bleiben, Stopp jederzeit möglich."],
     nachher: "Differenzdruck gesunken, Rußmasse niedrig.", profil: ["dpf_regeneration"], umkehrbar: false, hinweis: "Nur Wartung. Ändert nichts an der Abgasreinigung. Abschalten oder Entfernen gibt es in CANdor nicht." },
@@ -116,6 +116,7 @@ export const FUNKTIONEN = [
 /* Verboten: wird bei der Suche angezeigt, mit Grund. */
 export const VERBOTEN = [
   { name: "Schlüssel anlernen, Wegfahrsperre", alltag: ["schlüssel", "wegfahrsperre", "immobilizer", "all keys lost", "transponder", "sermi"], grund: "Diebstahlschutz. Nur über zertifizierte Wege (SERMI) beim Hersteller, nicht in CANdor." },
+  { name: "Geschwindigkeitsbegrenzer aufheben", alltag: ["vmax", "begrenzer", "abregelung", "höchstgeschwindigkeit", "speed limiter", "250 offen"], grund: "Strafbar nach § 22b StVG (Geschwindigkeitsbegrenzer). Gibt es in CANdor nicht." },
   { name: "Kilometerstand ändern", alltag: ["tacho", "kilometer", "km stand", "odometer", "laufleistung"], grund: "Strafbar nach § 22b StVG. Lesen zum Abgleich geht, Ändern nie." },
   { name: "Abgasreinigung abschalten", alltag: ["dpf off", "agr off", "egr off", "adblue off", "abschalten", "lambda off", "kat off"], grund: "Verboten (Zulassung, Umwelt). CANdor bietet nur Wartung wie die Service-Regeneration." },
   { name: "Airbag-Crashdaten löschen", alltag: ["crashdaten", "airbag reset", "crash"], grund: "Nach Auslösung ist der Tausch der Teile Pflicht; Crashdaten löschen gibt es nicht." },

@@ -22,7 +22,7 @@ export const PAGES = [
   { id: "check", label: "Prüfungen", icon: "check" },
   { id: "service", label: "Service und Anlernen", icon: "wrench" },
   { id: "bordnetz", label: "Bordnetz & Batterie", icon: "battery" },
-  { id: "agent", label: "Assistent", icon: "chat" },
+  { id: "agent", label: "KI-Assistent", icon: "chat" },
   { id: "report", label: "Bericht", icon: "report" },
   { id: "history", label: "Verlauf", icon: "clock" },
   { id: "detail", label: "Details", icon: "info" },

@@ -2,6 +2,7 @@
 <html lang="de" data-accent="signal" data-theme="dunkel" data-touch="comfort">
 <head>
 <meta name="candor-quelle" content="vorschau">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; img-src 'self' blob: data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0a0a0b">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -280,7 +281,7 @@
           <input type="file" id="cx-camera" accept="image/*" capture="environment" hidden>
         </form>
         <div class="cx-vorschlaege" id="cx-vorschlaege" hidden></div>
-        <p class="cx-hinweis">Die KI kann sich irren und führt nichts selbst aus.</p>
+        <p class="cx-hinweis">KI-Assistent (Claude). Die KI kann sich irren und führt nichts selbst aus. Kennzeichen und FIN werden vor dem Senden entfernt; bitte keine Namen, Fotos vom Fahrzeugschein oder Rechnungen anhängen.</p>
         </div>
       </section>
 
@@ -315,8 +316,6 @@
 
 <script src="vendor/uPlot.iife.min.js"></script>
 <script type="module" src="app.js"></script>
-<script>
-if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
-</script>
+<script src="sw-anmelden.js"></script>
 </body>
 </html>
