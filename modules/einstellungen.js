@@ -4,6 +4,7 @@ import { $, h, icon, mark, toast, storageGet } from "./dom.js";
 import { state, on, emit, logEvent } from "./state.js";
 import { go, openDisplaySettings } from "./shell.js";
 import { icon3d } from "./icons3d.js";
+import { werkhofSektion } from "./werkhof.js";
 
 const ANBIETER = [["aus", "Aus"], ["anthropic", "Claude (Anthropic)"], ["ollama", "Ollama, lokal"]];
 let data = null, choice = null, errors = {}, busy = false, testResult = null;
@@ -95,6 +96,8 @@ function render() {
   if (!box || $("view-einstellungen").hidden) return;
   const st = state.status || {}, w = state.werkstatt;
   const vehicles = (storageGet("kfzdiag-fahrzeuge", []) || []).length, hist = (storageGet("kfzdiag-verlauf", []) || []).length;
+  /* Werkhof-Abschnitt kommt nach, sobald der Stand vom Server da ist. */
+  werkhofSektion(render).then((el) => { const alt = $("werkhof-einrichten"); if (alt) alt.replaceWith(el); else box.children[0] ? box.children[0].after(el) : box.append(el); });
   box.replaceChildren(
     kiSection(),
     h("section", { class: "card set-sec" }, h("div", { class: "list set-list" },

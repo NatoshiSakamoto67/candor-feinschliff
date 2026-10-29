@@ -48,6 +48,11 @@ export function createServer() {
     settings: () => getJson("/api/einstellungen"),
     saveKi: (body) => getJson("/api/einstellungen/ki", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) }),
     testKi: () => getJson("/api/einstellungen/ki/test", { method: "POST" }),
+    /* Werkhof: der Schlüssel bleibt auf dem Diagnose-Server (kfzdiag/werkhof.py). */
+    werkhof: () => getJson("/api/werkhof"),
+    werkhofSpeichern: (body) => getJson("/api/werkhof", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) }),
+    werkhofFahrzeug: (kz) => getJson(`/api/werkhof/fahrzeug?kennzeichen=${encodeURIComponent(kz)}`),
+    werkhofBefund: (body) => getJson("/api/werkhof/befund", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) }),
     /* Chat als Strom: die Antwort kommt als Server-Sent Events, gelesen in chat.js. */
     chat: (body, signal) => fetch("/api/ki/chat", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json", Accept: "text/event-stream" }, body: JSON.stringify(body), signal }),
     async scan(onEvent) {

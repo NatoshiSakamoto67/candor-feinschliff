@@ -4,7 +4,8 @@
 import { $, h, icon, mark, storageGet, storageSet, toast } from "./dom.js";
 import { state, on, emit, firstReadiness, totalFaults, pendingFaults } from "./state.js";
 import { go, currentRoute, openDisplaySettings } from "./shell.js";
-import { BAUM, werte } from "../kern/einstellungs-baum.js";
+import { BAUM, werte, zeilenFuer } from "../kern/einstellungs-baum.js";
+import { kundenfassung, MANDANT, zumPortal } from "./mandant.js";
 import { FUNKTIONEN } from "../kern/service-katalog.js";
 import { ablauf, weiterText } from "../kern/ablauf.js";
 import { erledigtHeute, buchLaenge } from "./service.js";
@@ -25,6 +26,7 @@ const AKTION = {
   suche: () => emit("open-search"),
   modus: () => { setzeModus(modus() === "einfach" ? "profi" : "einfach"); toast(modus() === "einfach" ? "Einfacher Modus: nur das Wichtigste." : "Profi-Modus: alle Werkzeuge."); },
   panne: () => go("start"),
+  portal: () => zumPortal(),
 };
 const einfach = () => document.documentElement.dataset.modus === "einfach";
 
@@ -101,11 +103,12 @@ export function zeichneListe(containerId, { kompakt = false } = {}) {
   if (!l || l.key !== key) {
     const refs = new Map();
     box.replaceChildren(...[
-      kompakt ? null : h("h1", { class: "li-titel" }, "CANdor"),
+      kompakt ? null : h("h1", { class: "li-titel" }, kundenfassung() && MANDANT() ? MANDANT().titel : "CANdor"),
       profilkarte(refs),
       naechster(refs),
       ...BAUM.map((g) => {
-        const zeilen = g.zeilen.filter((z) => !(einfach() && z.profi));
+        const zeilen = g.zeilen.filter(zeilenFuer({ kunde: kundenfassung(), einfach: einfach() }));
+        if (!zeilen.length) return null;
         return h("section", { class: "li-block", "aria-label": g.titel || null }, g.titel ? h("h2", { class: "li-k" }, g.titel) : null, h("div", { class: "li-gruppe" }, ...zeilen.map((z) => zeile(z, refs))));
       })].filter(Boolean));
     l = { key, refs };

@@ -1,0 +1,5 @@
+/* Kundenfassung: CI der Werkstatt (Schriften OFL, aus dem Kundenportal). */
+@font-face{font-family:'Mandant Text';src:url('fonts/mandant-text.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Mandant Titel';src:url('fonts/mandant-titel.woff2') format('woff2');font-weight:100 900;font-display:swap}
+:root[data-edition="kunde"]{--font-text:'Mandant Text',-apple-system,system-ui,sans-serif;--font-display:'Mandant Text',-apple-system,system-ui,sans-serif;--font-num:'Mandant Text',-apple-system,system-ui,sans-serif;--mandant-1:#146DAB;--mandant-2:#FBAF3A}
+[data-edition="kunde"] .li-titel{font-family:'Mandant Titel','Mandant Text',sans-serif;font-weight:400;font-size:42px;line-height:44px;letter-spacing:.02em}

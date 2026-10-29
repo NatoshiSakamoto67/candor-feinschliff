@@ -29,6 +29,7 @@ import { initSearch } from "./modules/search.js";
 import { initService } from "./modules/service.js";
 import { initNavigation } from "./modules/navigation.js";
 import { initBordnetz } from "./modules/bordnetz.js";
+import { ladeMandant, kundenfassung, wendeMarkeAn } from "./modules/mandant.js";
 
 /* Jeder Bereich hängt am Ereignis "render" (start, vehicle, faults, check, pfade, live, report). */
 function renderAll() {
@@ -60,9 +61,11 @@ function startLive() {
 }
 
 async function start() {
+  await ladeMandant();
   const wanted = initialRoute();
   initShell(); initVorgang(); initWerkstatt(); initHandbuch(); initEinstellungen(); initGarage(); initConnect(); initStart(); initWidgets(); initEinfach(); initHistory(); initInfo(); initApproval();
   initVehicle(); initFaults(); initLive(); initCheck(); initPfade(); initAgent(); initReport(); initSearch(); initService(); initNavigation(); initBordnetz();
+  wendeMarkeAn();
   on("open-settings", openDisplaySettings);
   on("reload", reload);
   on("reconnect", () => connect());
@@ -70,7 +73,7 @@ async function start() {
   setWissen(await getJson("wissen.json").catch(() => null));
   renderStatus();
   /* Allererster Start: Werkstattdaten (überspringbar), dann Fahrzeug. */
-  if (!setupDone()) { openRoute({ page: "werkstatt" }); return; }
+  if (!setupDone() && !kundenfassung()) { openRoute({ page: "werkstatt" }); return; }
   /* Erster Start ohne Fahrzeug: zuerst anlegen. Sonst ist das zuletzt gewählte Fahrzeug wieder aktiv und wird verbunden. */
   if (!state.fahrzeug) { openRoute(wanted && ["fahrzeuge", "fahrzeug", "history", "werkstatt", "handbuch", "einstellungen"].includes(wanted.page) ? wanted : { page: vehicles().length ? "start" : "fahrzeug" }); return; }
   await connect();

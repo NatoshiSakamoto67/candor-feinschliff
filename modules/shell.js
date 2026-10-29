@@ -5,6 +5,7 @@ import { AKZENTE, DEFAULT_AKZENT, normalizeHex, readableAccent, onAccent, nearCr
 import { icon3d } from "./icons3d.js";
 import { vehicleLabel } from "./fahrzeuge.js";
 import { KAPITEL } from "./handbuch-inhalt.js";
+import { kundenfassung, MANDANT } from "./mandant.js";
 import { state, on, emit, obdList, firstReadiness, totalFaults, pendingFaults } from "./state.js";
 
 export const PAGES = [
@@ -205,7 +206,7 @@ export function applyPrefs() {
   if (d.contrast === "hoch") root.dataset.contrast = "hoch"; else delete root.dataset.contrast;
   root.dataset.touch = d.touch;
   root.dataset.icons = prefs.icons;
-  setAccent(root, prefs.akzent, d.contrast);
+  setAccent(root, kundenfassung() && MANDANT() ? MANDANT().akzent : prefs.akzent, d.contrast);
   emit("theme");
 }
 function setPref(key, value, { rerender = true } = {}) {

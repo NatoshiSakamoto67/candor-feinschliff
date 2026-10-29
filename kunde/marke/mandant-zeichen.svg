@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="KFZ Gorski">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#146DAB"/>
+      <stop offset="1" stop-color="#FBAF3A"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="#0B0D10"/>
+  <rect x="0" y="0" width="64" height="6" rx="3" fill="url(#g)"/>
+  <text x="32" y="45" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="800" font-size="30" letter-spacing="-1" fill="#fff">KG</text>
+  <circle cx="49" cy="17" r="3.4" fill="#FBAF3A"/>
+</svg>

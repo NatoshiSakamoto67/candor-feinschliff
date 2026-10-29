@@ -1,0 +1,9 @@
+{
+  "id": "gorski",
+  "name": "KFZ Gorski",
+  "titel": "Mein Auto prüfen",
+  "untertitel": "KFZ Gorski Meisterwerkstatt",
+  "akzent": "#146DAB",
+  "akzent2": "#FBAF3A",
+  "portal": "./#start"
+}

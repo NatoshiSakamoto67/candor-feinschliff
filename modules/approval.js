@@ -14,6 +14,7 @@ const vibrate = (pattern) => { try { navigator.vibrate && navigator.vibrate(patt
 /* opts.vorpruefung: wird unmittelbar vor dem Schreiben erneut gemessen (die Freigabe gilt bis zu 5 min, der Zustand
    kann kippen). Gibt sie einen Text zurück, wird nichts geschrieben. opts.vorbedingungen: Stand zur Anzeige im Dialog. */
 export async function startAction(action, opts = {}) {
+  if (document.documentElement.dataset.edition === "kunde") { showFailure({ titel: "Nur lesen", meldung: "In dieser Fassung wird nichts ins Auto geschrieben. Löschen, Zurücksetzen und Anlernen macht deine Werkstatt.", hilfe: [], retry: null }); return; }
   if (schreibschutzAn()) { showFailure({ titel: "Schreibschutz ist an", meldung: "CANdor schreibt gerade nichts ins Auto. Ausschalten in der Liste ganz oben unter »Schreibschutz«. Es wurde nichts gesendet.", hilfe: [], retry: null }); return; }
   const done = busy("Freigabe vorbereiten");
   const reply = await withTimeout(state.src.request(action), 8000, "Der Server hat die Freigabe in 8 Sekunden nicht vorbereitet.").catch((e) => ({ typ: "fehler", meldung: e.message })).finally(done);

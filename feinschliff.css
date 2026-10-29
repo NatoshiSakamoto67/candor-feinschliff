@@ -306,3 +306,14 @@ body::before { background: radial-gradient(1400px 700px at 50% -20%, color-mix(i
 .bn-schnitt { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; border-top: 1px solid color-mix(in oklab, var(--text) 45%, transparent); pointer-events: none; transform-origin: bottom; top: 100%; }
 .bn-schnitt-t { position: absolute; right: 0; top: -2px; transform: translateY(-100%); color: var(--text-muted); }
 .bn-achse { display: flex; justify-content: space-between; margin-top: 8px; color: var(--text-muted); }
+
+/* ---------- Kundenfassung unter dem Namen einer Werkstatt (data-edition="kunde", Schriften in mandant.css) ---------- */
+[data-edition="kunde"] #obd-clear, [data-edition="kunde"] .modus-wahl, [data-edition="kunde"] #widgets, [data-edition="kunde"] .sim-band { display: none !important; }
+[data-edition="kunde"] #view-start { display: flex; flex-direction: column; }
+[data-edition="kunde"] #einfach { order: -1; margin-bottom: var(--sp-5); }
+[data-edition="kunde"] #view-start #vehicle-card, [data-edition="kunde"] #view-start #start-ablauf { display: none !important; }
+[data-edition="kunde"] .li-naechster, [data-edition="kunde"] #sv-buch { display: none !important; }
+.mandant-logo { display: block; height: 26px; width: auto; }
+[data-theme="dunkel"] .mandant-logo { filter: brightness(0) invert(1); }
+[data-edition="kunde"] .wordmark, [data-edition="kunde"] .brand-mark { display: none; }
+[data-edition="kunde"] .li-zahl, [data-edition="kunde"] .tb-badge { background: var(--mandant-2, var(--accent)); color: #1a1205; }

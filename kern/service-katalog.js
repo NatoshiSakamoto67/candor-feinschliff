@@ -130,10 +130,10 @@ const fix = (x, d) => x.toLocaleString("de-DE", { minimumFractionDigits: d, maxi
 
 /**
  * Suche mit Alltagswörtern. Im einfachen Modus nur Funktionen für Laien.
- * @param {string} q @param {{einfach?: boolean}} [opt]
+ * @param {string} q @param {{einfach?: boolean, nurAnleitung?: boolean}} [opt]
  */
 export function suche(q, opt = {}) {
-  const basis = FUNKTIONEN.filter((f) => !opt.einfach || f.einfach);
+  const basis = FUNKTIONEN.filter((f) => (!opt.einfach || f.einfach) && (!opt.nurAnleitung || f.weg === "anleitung"));
   const w = norm(q || "");
   if (!w) return { treffer: basis, verboten: [] };
   const passt = (/** @type {string[]} */ texte) => texte.some((t) => norm(t).includes(w) || w.split(" ").every((teil) => norm(t).includes(teil)));

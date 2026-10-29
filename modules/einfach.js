@@ -6,6 +6,7 @@ import { state, on, emit, faultSet } from "./state.js";
 import { go } from "./shell.js";
 import { lookup } from "./dtcwissen.js";
 import { ampel } from "../kern/ampel.js";
+import { kundenfassung, MANDANT, zumPortal } from "./mandant.js";
 
 export const modus = () => storageGet("kfzdiag-modus", "profi");
 export function setzeModus(m) { storageSet("kfzdiag-modus", m); document.documentElement.dataset.modus = m; emit("modus", m); emit("render"); }
@@ -42,7 +43,8 @@ export async function zeichneEinfach() {
         gruende.length ? h("ul", { class: "ef-gruende" }, ...gruende.map((g) => h("li", {}, g))) : null,
         h("div", { class: "row-actions" },
           h("button", { class: "btn pri", type: "button", onclick: () => emit("reconnect") }, verbunden ? "Erneut prüfen" : "Auto prüfen"),
-          verbunden && fehler.length ? h("button", { class: "btn sec", type: "button", onclick: () => go("agent") }, icon3d("robot", "btn-i3"), "KI fragen") : null))),
+          verbunden && fehler.length ? (kundenfassung() ? h("button", { class: "btn sec", type: "button", onclick: zumPortal }, icon("chat"), `${(MANDANT() || {}).name || "Werkstatt"} fragen`)
+            : h("button", { class: "btn sec", type: "button", onclick: () => go("agent") }, icon3d("robot", "btn-i3"), "KI fragen")) : null))),
     verbunden && fehler.length ? h("section", { class: "ef-liste", "aria-label": "Gefundene Fehler" }, h("h3", { class: "h3" }, `${fehler.length} Fehler, einfach erklärt`),
       ...liste.map(({ f, w }) => h("article", { class: "card ef-fehler" },
         h("p", { class: "eyebrow" }, `${f.code} · ${f.art === "gespeichert" ? "gespeichert" : "vorläufig, noch nicht bestätigt"}`),

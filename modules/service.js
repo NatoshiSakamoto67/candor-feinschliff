@@ -38,6 +38,8 @@ export function eintragen(typ, daten) {
 }
 /* Erledigte Arbeiten heute am gewählten Fahrzeug, für den Ablauf auf der Startseite. */
 export const buchLaenge = () => buch.length;
+/* Letztes Glied der Kette: Fingerabdruck für den Befund an Werkhof. */
+export const buchKopf = () => (buch.length ? buch[buch.length - 1].hash : null);
 export function erledigtHeute() {
   const heute = new Date().toDateString(), fz = fzName();
   return buch.filter((g) => ["ausgefuehrt", "anleitung"].includes(g.typ) && new Date(g.zeit).toDateString() === heute && (g.daten || {}).fahrzeug === fz && (g.daten || {}).funktion).length;
@@ -82,13 +84,13 @@ function zeile(fn) {
     chev());
 }
 function renderKatalog() {
-  const { treffer, verboten } = suche(suchText, { einfach: einfach() });
+  const { treffer, verboten } = suche(suchText, { einfach: einfach(), nurAnleitung: document.documentElement.dataset.edition === "kunde" });
   const gruppen = GRUPPEN.map((g) => ({ g, fns: treffer.filter((f) => f.gruppe === g.id) })).filter((x) => x.fns.length);
-  $("sv-liste").replaceChildren(
+  $("sv-liste").replaceChildren(...[
     ...verboten.map((v) => h("div", { class: "sv-verboten", role: "note" }, mark("locked"), h("span", {}, h("strong", {}, `${v.name}: gibt es in CANdor nicht. `), v.grund))),
     ...gruppen.map(({ g, fns }) => h("section", { class: "sv-gruppe" }, h("h3", { class: "sv-gk" }, g.label, h("span", { class: "sm" }, ` · ${g.text}`)), h("div", { class: "sv-karte" }, ...fns.map(zeile)))),
     weitere(),
-    !gruppen.length && !verboten.length ? h("p", { class: "hint" }, "Nichts gefunden. Versuch es mit einem Bauteil, etwa Batterie, Bremse, Reifen.") : null);
+    !gruppen.length && !verboten.length ? h("p", { class: "hint" }, "Nichts gefunden. Versuch es mit einem Bauteil, etwa Batterie, Bremse, Reifen.") : null].filter(Boolean));
 }
 
 /* Im Fahrzeugprofil hinterlegte Funktionen ohne Platz im Katalog, etwa Stellgliedtests. Öffnen die Infoseite mit Start. */
