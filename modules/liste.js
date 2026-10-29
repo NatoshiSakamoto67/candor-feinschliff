@@ -79,12 +79,12 @@ function profilkarte(refs) {
   const name = fz ? vehicleName(fz) : "Kein Fahrzeug";
   const kuerzel = fz ? (String(fz.marke || "?")[0] + String(fz.modell || "")[0]).toUpperCase() : "+";
   const karte = h("div", { class: "li-gruppe li-profil" },
-    h("a", { class: "li-row li-row-profil", href: fz ? `#fahrzeug/${fz.id}` : "#fahrzeug", "data-id": "profil", onclick: (ev) => { ev.preventDefault(); go("fahrzeug", fz ? { sub: fz.id } : {}); } },
+    h("a", { class: "li-row li-row-profil", href: "#seite/profil", "data-id": "profil", onclick: (ev) => { ev.preventDefault(); if (fz) go("seite", { sub: "profil" }); else go("fahrzeug"); } },
       h("span", { class: `li-avatar${fz ? " li-avatar-bild" : ""}`, "aria-hidden": "true" }, fz ? bildIcon("auto") : kuerzel),
       h("span", { class: "li-t" }, h("span", { class: "li-name" }, name), h("span", { class: "li-unter" }, fz ? "Fahrzeugakte, Wartung, Fehler und mehr" : "Fahrzeug anlegen oder wählen")),
       fz && (fz.kennzeichen || "").trim() ? h("span", { class: "li-plate" }, plate(fz, true)) : null,
       h("span", { class: "li-chev", "aria-hidden": "true" }, "›")),
-    h("a", { class: "li-row", href: "#fahrzeuge", "data-id": "fuhrpark", onclick: (ev) => { ev.preventDefault(); go("fahrzeuge"); } },
+    h("a", { class: "li-row", href: "#seite/fuhrpark", "data-id": "fuhrpark", onclick: (ev) => { ev.preventDefault(); go("seite", { sub: "fuhrpark" }); } },
       h("span", { class: "li-ic li-bild", "aria-hidden": "true" }, bildIcon("auto")), h("span", { class: "li-t" }, "Fuhrpark"),
       h("span", { class: "li-v" }, String(vehicles().length)), h("span", { class: "li-chev", "aria-hidden": "true" }, "›")));
   refs.set("profil", { el: karte.firstChild }); refs.set("fuhrpark", { el: karte.lastChild });
@@ -135,7 +135,9 @@ function aktualisiere(refs) {
   }
   /* Markierung: nur die erste Zeile, die zur offenen Seite führt */
   const seite = currentRoute().page;
-  const erste = seite === "fahrzeug" ? "profil" : seite === "fahrzeuge" ? "fuhrpark" : ([...refs.values()].find((r) => r.z && r.z.ziel === seite) || {}).z?.id;
+  const sub = currentRoute().sub;
+  const erste = seite === "seite" ? (sub === "profil" ? "profil" : sub === "fuhrpark" ? "fuhrpark" : ([...refs.values()].find((r) => r.z && r.z.ziel === "seite" && r.z.sub === sub) || {}).z?.id)
+    : seite === "fahrzeug" ? "profil" : seite === "fahrzeuge" ? "fuhrpark" : ([...refs.values()].find((r) => r.z && r.z.ziel === seite) || {}).z?.id;
   for (const [id, r] of refs) {
     if (!r.el || id === "naechster") continue;
     if (id === erste) r.el.setAttribute("aria-current", "page"); else r.el.removeAttribute("aria-current");

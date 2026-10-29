@@ -5,6 +5,7 @@ import { state, WISSEN, DTC_REG, on, emit, signalTitle } from "./state.js";
 import { openInfo } from "./info.js";
 import { showTab, go, TABS, CHECK_SUBS } from "./shell.js";
 import { FUNKTIONEN, VERBOTEN } from "../kern/service-katalog.js";
+import { wert } from "./seiten.js";
 
 let selected = 0;
 let results = [];
@@ -51,7 +52,7 @@ function run(query) {
   selected = 0;
   renderResults();
   clearTimeout(rmiTimer);
-  if (q.length >= 3 && state.src) rmiTimer = setTimeout(async () => {
+  if (q.length >= 3 && state.src && wert("rmi", true)) rmiTimer = setTimeout(async () => {
     try {
       const r = await state.src.rmi(q);
       if (lastQuery !== q || !r.ok) return;

@@ -10,9 +10,9 @@ export const FARBE = { orange: "#FF9F0A", blau: "#0A84FF", gruen: "#30D158", gra
 export const BAUM = [
   { id: "verbindung", zeilen: [
     { id: "schreibschutz", label: "Schreibschutz", icon: "schloss", farbe: FARBE.orange, schalter: "schreibschutz", apple: "Flugmodus" },
-    { id: "wlan", label: "WLAN-Adapter", icon: "wlan", bild: "stecker", farbe: FARBE.blau, ziel: "connect", apple: "WLAN" },
-    { id: "bluetooth", label: "Bluetooth-Adapter", icon: "bt", bild: "stecker", farbe: FARBE.blau, ziel: "connect", kunde: true, apple: "Bluetooth" },
-    { id: "bus", label: "Fahrzeugbus", icon: "bus", farbe: FARBE.gruen, ziel: "car", profi: true, apple: "Mobilfunk" },
+    { id: "wlan", label: "WLAN-Adapter", icon: "wlan", bild: "stecker", farbe: FARBE.blau, ziel: "seite", sub: "wlan", apple: "WLAN" },
+    { id: "bluetooth", label: "Bluetooth-Adapter", icon: "bt", bild: "stecker", farbe: FARBE.blau, ziel: "seite", sub: "bluetooth", kunde: true, apple: "Bluetooth" },
+    { id: "bus", label: "Fahrzeugbus", icon: "bus", farbe: FARBE.gruen, ziel: "seite", sub: "bus", profi: true, apple: "Mobilfunk" },
     { id: "steuergeraete", label: "Steuergeräte", icon: "ecu", bild: "steuergeraete", farbe: FARBE.gruen, ziel: "car", apple: "Persönlicher Hotspot" },
     { id: "bordnetz", label: "Bordnetz & Batterie", icon: "battery", bild: "messgeraet", farbe: FARBE.gruen, ziel: "bordnetz", kunde: true, apple: "Batterie" },
     { id: "fernzugriff", label: "Fernzugriff", icon: "globus", farbe: FARBE.blau, schalter: "fernzugriff", bald: true, apple: "VPN" },
@@ -26,17 +26,17 @@ export const BAUM = [
     { id: "bericht", label: "Bericht", icon: "report", bild: "bericht", farbe: FARBE.blau, ziel: "report", apple: "Teilen" },
   ] },
   { id: "geraet", zeilen: [
-    { id: "allgemein", label: "Allgemein", icon: "regler", bild: "kennung", farbe: FARBE.grau, ziel: "fahrzeug", apple: "Allgemein" },
-    { id: "bedienung", label: "Bedienungshilfen", icon: "hand", farbe: FARBE.blau, aktion: "anzeige", kunde: true, apple: "Bedienungshilfen" },
+    { id: "allgemein", label: "Allgemein", icon: "regler", bild: "kennung", farbe: FARBE.grau, ziel: "seite", sub: "allgemein", apple: "Allgemein" },
+    { id: "bedienung", label: "Bedienungshilfen", icon: "hand", farbe: FARBE.blau, ziel: "seite", sub: "bedienung", kunde: true, apple: "Bedienungshilfen" },
     { id: "schnellaktion", label: "Schnellaktion", icon: "blitz", farbe: FARBE.blau, aktion: "vollscan", apple: "Aktionstaste" },
-    { id: "anzeige", label: "Anzeige", icon: "sonne", bild: "anzeige", farbe: FARBE.blau, aktion: "anzeige", kunde: true, apple: "Anzeige & Helligkeit" },
+    { id: "anzeige", label: "Anzeige", icon: "sonne", bild: "anzeige", farbe: FARBE.blau, ziel: "seite", sub: "anzeige", kunde: true, apple: "Anzeige & Helligkeit" },
     { id: "ki", label: "KI-Assistent", icon: "stern", bild: "ki", farbe: FARBE.indigo, ziel: "agent", apple: "Apple Intelligence & Siri" },
     { id: "darstellung", label: "Fahrzeugdarstellung", icon: "bild", bild: "auto", farbe: FARBE.tuerkis, ziel: "car", kunde: true, apple: "Hintergrundbild" },
     { id: "cockpit", label: "Startseite & Cockpit", icon: "raster", farbe: FARBE.blau, aktion: "cockpit", apple: "Home-Bildschirm & App-Mediathek" },
     { id: "kamera", label: "Kamera", icon: "kamera", bild: "freeze", farbe: FARBE.grau, bald: true, apple: "Kamera" },
-    { id: "statusleiste", label: "Statusleiste", icon: "schalter", farbe: FARBE.grau, bald: true, apple: "Kontrollzentrum" },
+    { id: "statusleiste", label: "Statusleiste", icon: "schalter", farbe: FARBE.grau, ziel: "seite", sub: "statusleiste", apple: "Kontrollzentrum" },
     { id: "dashboard", label: "Dashboard-Modus", icon: "uhr", farbe: FARBE.dunkel, bald: true, apple: "Standby" },
-    { id: "suche", label: "Suche", icon: "lupe", farbe: FARBE.grau, aktion: "suche", kunde: true, apple: "Suchen" },
+    { id: "suche", label: "Suche", icon: "lupe", farbe: FARBE.grau, ziel: "seite", sub: "suche", kunde: true, apple: "Suchen" },
   ] },
   { id: "hinweise", zeilen: [
     { id: "warnungen", label: "Warnungen", icon: "glocke", farbe: FARBE.rot, bald: true, apple: "Mitteilungen" },
@@ -45,13 +45,13 @@ export const BAUM = [
     { id: "betriebsbuch", label: "Betriebsbuch", icon: "buch", bild: "verlauf", farbe: FARBE.lila, ziel: "service", apple: "Bildschirmzeit" },
   ] },
   { id: "schutz", zeilen: [
-    { id: "freigabe", label: "Freigabe", icon: "gesicht", farbe: FARBE.gruen, ziel: "handbuch", apple: "Face ID & Code" },
+    { id: "freigabe", label: "Freigabe", icon: "gesicht", farbe: FARBE.gruen, ziel: "seite", sub: "freigabe", apple: "Face ID & Code" },
     { id: "panne", label: "Pannenhilfe", icon: "sos", farbe: FARBE.rot, aktion: "panne", kunde: true, apple: "Notruf SOS" },
     { id: "datenschutz", label: "Datenschutz & Sicherheit", icon: "schild", farbe: FARBE.blau, ziel: "einstellungen", kunde: true, apple: "Datenschutz & Sicherheit" },
   ] },
   { id: "ablage", zeilen: [
     { id: "faelle", label: "Belegte Fälle", icon: "pokal", farbe: FARBE.gelb, ziel: "history", apple: "Game Center" },
-    { id: "sicherung", label: "Sicherung", icon: "wolke", farbe: FARBE.blau, bald: true, apple: "iCloud" },
+    { id: "sicherung", label: "Sicherung", icon: "wolke", farbe: FARBE.blau, ziel: "seite", sub: "sicherung", apple: "iCloud" },
     { id: "papiere", label: "Papiere", icon: "karte", farbe: FARBE.dunkel, bald: true, apple: "Wallet" },
   ] },
   { id: "werkstatt", zeilen: [
@@ -113,3 +113,10 @@ export function werte(s) {
 
 /** Zeilen für die Fassung: Kundenfassung nur Zeilen mit kunde, sonst alle außer nurKunde; einfach ohne profi. @param {{kunde?: boolean, einfach?: boolean}} f */
 export const zeilenFuer = (f) => (z) => (f.kunde ? Boolean(z.kunde) : !z.nurKunde) && !(f.einfach && z.profi);
+
+/** Titel der Unterseiten (#seite/<id>), Reihenfolge wie im Konzept Abschnitt 8. */
+export const SEITEN_TITEL = Object.freeze({
+  profil: "Fahrzeug", fuhrpark: "Fuhrpark", bluetooth: "Bluetooth-Adapter", wlan: "WLAN-Adapter", bus: "Fahrzeugbus", takt: "Abfrage-Takt",
+  batteriezustand: "Batteriezustand", allgemein: "Allgemein", info: "Info", einheiten: "Sprache & Einheiten", anzeige: "Anzeige",
+  bedienung: "Bedienungshilfen", suche: "Suche", sicherung: "Sicherung", statusleiste: "Statusleiste", freigabe: "Freigabe",
+});

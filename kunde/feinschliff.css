@@ -325,3 +325,68 @@ body::before { background: radial-gradient(1400px 700px at 50% -20%, color-mix(i
 .li-ic.li-bild img { display: block; width: 100%; height: 100%; }
 .li-avatar.li-avatar-bild { background: none; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
 .li-avatar.li-avatar-bild img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); }
+
+/* ---------- Unterseiten im Apple-Stil (seiten.js) ---------- */
+.sk-block { margin-top: 26px; }
+.li-seite > :first-child { margin-top: 0; }
+.sk-kopf { padding: 20px 20px 18px; display: grid; gap: 8px; }
+.sk-ic { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 15px; color: #fff; background: var(--c, var(--accent)); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 2px 6px rgba(0,0,0,.3); }
+.sk-ic.li-bild { background: none; box-shadow: 0 2px 6px rgba(0,0,0,.3); overflow: hidden; }
+.sk-ic img { width: 64px; height: 64px; display: block; }
+.sk-ic .ic { width: 36px; height: 36px; stroke: currentColor; stroke-width: 1.8; fill: none; }
+.sk-titel { margin: 6px 0 0; font: 700 26px/31px var(--font-display); letter-spacing: -.01em; }
+.sk-text { margin: 0; font: 400 17px/23px var(--font-text); color: var(--text-muted); }
+.sk-mehr { color: var(--accent); text-decoration: none; }
+.sk-schalter { margin: 4px -20px -18px; border-top: .5px solid var(--hairline); }
+.sk-schalter .li-row { padding: 0 20px 0 36px; }
+.sk-row { width: 100%; border: 0; background: none; text-align: left; font: inherit; grid-template-columns: minmax(0, 1fr) auto auto; }
+.sk-row:has(.li-ic, .sk-mark) { grid-template-columns: 30px minmax(0, 1fr) auto auto; }
+.sk-row .li-t { display: grid; gap: 1px; white-space: normal; }
+.sk-row .li-unter { font-size: 15px; }
+.sk-row.fest .li-sw { opacity: .55; }
+.sk-mark { display: grid; place-items: center; }
+.sk-haken { color: var(--accent); font: 600 20px/1 var(--font-text); }
+.sk-aktion .li-t { color: var(--accent); }
+.sk-aktion.t-rot .li-t { color: var(--crit); }
+.li-row.sk-row:not(button):not(label) { cursor: default; }
+.li-row.sk-row:not(button):not(label):hover { background: none; }
+.sk-spinner { display: inline-block; width: 13px; height: 13px; margin-left: 8px; border-radius: 50%; border: 2px solid color-mix(in oklab, var(--text-muted) 40%, transparent); border-top-color: var(--text-muted); animation: sk-dreh 1s linear infinite; vertical-align: -1px; }
+@keyframes sk-dreh { to { transform: rotate(360deg); } }
+.sk-profil { display: grid; justify-items: center; gap: 4px; margin: 10px 0 24px; text-align: center; }
+.sk-profil.links { justify-items: start; text-align: left; }
+.sk-avatar { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+.sk-avatar img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); }
+.sk-name { margin: 8px 0 0; font: 700 28px/33px var(--font-display); }
+.sk-name.gross { font-size: 34px; line-height: 40px; }
+.sk-fin { margin: 0; color: var(--text-muted); font-size: 17px; }
+.sk-plate { margin-top: 6px; }
+.sk-zahlen { display: grid; grid-template-columns: 1fr 1fr; padding: 16px 20px; gap: 12px; }
+.sk-zl { display: block; color: var(--text-muted); font-size: 15px; }
+.sk-zw { display: block; font: 600 30px/36px var(--font-display); }
+.sk-speicher { padding: 16px 20px; display: grid; gap: 10px; }
+.sk-sp-kopf { display: flex; justify-content: space-between; font-size: 17px; }
+.sk-sp-balken { display: flex; height: 22px; border-radius: 6px; overflow: hidden; background: color-mix(in oklab, var(--text) 10%, transparent); gap: 1px; }
+.sk-sp-balken i { display: block; min-width: 2px; }
+.sk-sp-legende { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--text-muted); }
+.sk-sp-legende i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+.sk-raster { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+.sk-kachel { display: flex; align-items: center; gap: 10px; padding: 14px; border-radius: 16px; border: .5px solid var(--hairline); background: color-mix(in oklab, var(--text) 4%, transparent); text-align: left; cursor: pointer; color: var(--text); font: inherit; }
+.sk-kachel .li-ic { width: 34px; height: 34px; border-radius: 8px; flex: none; }
+.sk-kt { display: block; font: 600 17px/21px var(--font-text); }
+.sk-ku { display: block; color: var(--text-muted); font-size: 15px; }
+.sk-erscheinung { padding-top: 18px; }
+.sk-karten { display: grid; grid-template-columns: 1fr 1fr; justify-items: center; padding: 0 20px 14px; border-bottom: .5px solid var(--hairline); }
+.sk-erschein { display: grid; justify-items: center; gap: 8px; border: 0; background: none; color: var(--text); font: 400 17px/1 var(--font-text); cursor: pointer; }
+.sk-vorschau { position: relative; display: grid; align-content: start; gap: 4px; width: 62px; height: 128px; padding: 14px 6px; border-radius: 12px; box-shadow: 0 0 0 .5px var(--hairline); }
+.sk-vorschau.hell { background: linear-gradient(160deg, #dff3f1, #6cc0d6 60%, #2f6fd6); }
+.sk-vorschau.dunkel { background: linear-gradient(160deg, #1b3a7a, #0d7f8c 60%, #0a2f86); }
+.sk-vorschau b { font: 600 12px/1 var(--font-text); color: #fff; text-align: center; }
+.sk-vorschau i { display: block; height: 12px; border-radius: 4px; background: rgba(255,255,255,.35); }
+.sk-radio { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--line-strong); font: 700 13px/1 var(--font-text); color: #fff; }
+.sk-erschein.an .sk-radio { background: var(--accent); box-shadow: none; }
+/* Wirkung der Schalter */
+[data-fett="an"] body, [data-fett="an"] .li-t, [data-fett="an"] .p, [data-fett="an"] .sm { font-weight: 600; }
+[data-bewegung="reduziert"] *, [data-bewegung="reduziert"] *::before, [data-bewegung="reduziert"] *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+[data-bewegung="reduziert"] .lk::after { display: none; }
+.li-row.sk-row:has(.li-sw) { grid-template-columns: minmax(0, 1fr) auto; }
+.li-row.sk-row:has(.li-sw):has(.li-ic, .sk-mark) { grid-template-columns: 30px minmax(0, 1fr) auto; }
